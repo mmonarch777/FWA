@@ -33,8 +33,6 @@ public class SpringConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driver);
         dataSource.setUrl(url);
-//        dataSource.setUsername(user);
-//        dataSource.setPassword(password);
         return dataSource;
     }
 

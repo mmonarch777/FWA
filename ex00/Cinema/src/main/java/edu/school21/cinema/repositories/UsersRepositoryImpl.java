@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -22,6 +23,22 @@ public class UsersRepositoryImpl implements UsersRepository{
         this.encoder = encoder;
     }
 
+    public List<User> findUsersByName(HttpServletRequest request) {
+        String name = request.getParameter("name");
+        return jdbc.query("select * from users where name=?", new Object[]{name}, new UserMapper());
+    }
+
+    @Override
+    public Optional<User> findUser(HttpServletRequest request) {
+        List<User> list = findUsersByName(request);
+        String password = request.getParameter("password");
+        for (User user : list) {
+            if (encoder.matches(password, user.getPassword())) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
     @Override
     public boolean saveUser(HttpServletRequest request) {
         AtomicBoolean checkUser = new AtomicBoolean(false);
@@ -51,11 +68,13 @@ public class UsersRepositoryImpl implements UsersRepository{
         return false;
     }
 
+
+
     public List<User> getAllUsers() {
-        return jdbc.query("select * from users", new PersonMapper());
+        return jdbc.query("select * from users", new UserMapper());
     }
 
-    public class PersonMapper implements RowMapper<User> {
+    public class UserMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet resultSet, int i) throws SQLException {
             return new User(
