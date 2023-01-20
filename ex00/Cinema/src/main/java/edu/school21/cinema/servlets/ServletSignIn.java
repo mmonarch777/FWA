@@ -31,6 +31,7 @@ public class ServletSignIn extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF8");
         Optional<User> obj = usersService.findUser(req);
         if (obj.isPresent()) {
             User user = obj.get();

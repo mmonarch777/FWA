@@ -31,6 +31,7 @@ public class ServletSignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF8");
         if (usersService.saveUser(req)){
             resp.sendRedirect("/");
         } else {
