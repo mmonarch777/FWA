@@ -7,11 +7,16 @@
   
   <servlet>
     <servlet-name>profile</servlet-name>
-    <jsp-file>/WEB-INF/profile.jsp</jsp-file>
+    <jsp-file>/WEB-INF/jsp/profile.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>profile</servlet-name>
     <url-pattern>/profile</url-pattern>
   </servlet-mapping>
+  
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/jsp/403.jsp</location>
+  </error-page>
 
 </web-app>

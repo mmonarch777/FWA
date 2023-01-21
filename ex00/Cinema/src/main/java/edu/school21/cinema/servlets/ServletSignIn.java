@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(value = "/signIn")
+@WebServlet(value = {"/signIn", "/"})
 public class ServletSignIn extends HttpServlet {
     private UsersService usersService;
 
@@ -26,7 +26,7 @@ public class ServletSignIn extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/signIn.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/signIn.jsp").forward(req, resp);
     }
 
     @Override

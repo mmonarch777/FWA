@@ -26,7 +26,7 @@ public class ServletSignIn extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/signIn.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/signIn.jsp").forward(req, resp);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ServletSignIn extends HttpServlet {
             session.setAttribute("user", user);
             resp.sendRedirect("/profile");
         } else {
-            doGet(req, resp);
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 }

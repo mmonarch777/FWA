@@ -19,7 +19,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         User user = (User) request.getSession().getAttribute("user");
-        request.getSession().
+
         if (user != null) {
             response.sendRedirect("/profile");
         } else {
