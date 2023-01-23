@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -18,14 +19,16 @@ public class UsersRepositoryImpl implements UsersRepository{
 
     private final JdbcTemplate jdbc;
     private final  PasswordEncoder encoder;
-    public UsersRepositoryImpl(JdbcTemplate jdbc, PasswordEncoder encoder) {
+    private final InfoRepository infoRepository;
+    public UsersRepositoryImpl(JdbcTemplate jdbc, PasswordEncoder encoder, InfoRepository infoRepository) {
         this.jdbc = jdbc;
         this.encoder = encoder;
+        this.infoRepository = infoRepository;
     }
 
     public List<User> findUsersByName(HttpServletRequest request) {
         String name = request.getParameter("name");
-        return jdbc.query("select * from users where name=?", new Object[]{name}, new UserMapper());
+        return jdbc.query("select * from users where name=?", new Object[]{name}, new int[]{Types.VARCHAR}, new UserMapper());
     }
 
     @Override
@@ -34,6 +37,12 @@ public class UsersRepositoryImpl implements UsersRepository{
         String password = request.getParameter("password");
         for (User user : list) {
             if (encoder.matches(password, user.getPassword())) {
+                String ip = request.getRemoteAddr();
+                if (ip.equals("0:0:0:0:0:0:0:1")) {
+                    ip = "127.0.0.1";
+                }
+                infoRepository.saveInfo(user.getId(), ip);
+                user.setInfoList(infoRepository.getInfo(user.getId()));
                 return Optional.of(user);
             }
         }
@@ -78,10 +87,12 @@ public class UsersRepositoryImpl implements UsersRepository{
         @Override
         public User mapRow(ResultSet resultSet, int i) throws SQLException {
             return new User(
+                    resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("surname"),
                     resultSet.getString("phone"),
-                    resultSet.getString("password")
+                    resultSet.getString("password"),
+                    null
             );
         }
     }

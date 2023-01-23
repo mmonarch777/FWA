@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,7 +26,7 @@ public class UsersRepositoryImpl implements UsersRepository{
 
     public List<User> findUsersByName(HttpServletRequest request) {
         String name = request.getParameter("name");
-        return jdbc.query("select * from users where name=?", new Object[]{name}, new UserMapper());
+        return jdbc.query("select * from users where name=?", new Object[]{name}, new int[]{Types.VARCHAR}, new UserMapper());
     }
 
     @Override

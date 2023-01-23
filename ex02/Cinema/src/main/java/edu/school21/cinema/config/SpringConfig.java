@@ -1,6 +1,8 @@
 package edu.school21.cinema.config;
 
 
+import edu.school21.cinema.repositories.InfoRepository;
+import edu.school21.cinema.repositories.InfoRepositoryImpl;
 import edu.school21.cinema.repositories.UsersRepository;
 import edu.school21.cinema.repositories.UsersRepositoryImpl;
 import edu.school21.cinema.services.UsersService;
@@ -48,7 +50,12 @@ public class SpringConfig {
 
     @Bean
     public UsersRepository usersRepository() {
-        return new UsersRepositoryImpl(jdbcTemplate(), encoder());
+        return new UsersRepositoryImpl(jdbcTemplate(), encoder(), infoRepository());
+    }
+
+    @Bean
+    public InfoRepository infoRepository() {
+        return new InfoRepositoryImpl(jdbcTemplate());
     }
 
     @Bean
