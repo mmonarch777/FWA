@@ -12,33 +12,19 @@
 <html>
   <head>
     <title>$Title$</title>
-    <style>
-      table, th, td {
-        border: 1px solid black;
-      }
-      .head {
-        display: flex;
-        max-width: 100%;
-        height: auto;
-      }
-      .block1 {
-        margin-left: 20px;
-        margin-top: 20px;
-      }
-      .block2 {
-        margin-left: 20px;
-      }
-    </style>
+<%--    Не работает тег link--%>
+<%--    <link href="../css/index.css" rel="stylesheet" type="text/css"/>--%>
+    <style><%@include file="../css/index.css"%></style>
   </head>
   <body>
   <div class="head">
     <div class="block1">
-      <img style="width:auto;" alt="Avatar" width="200" height="200"/>
+      <img class="image" alt="Avatar"/>
     </div>
     <div class="block2">
       <h1>${user.name} ${user.surname}</h1>
       <p>Phone: ${user.phone}</p>
-      <table style="width: 500px">
+      <table class="table">
         <thead >
         <tr>
           <th style="text-align:left">Дата</th>
@@ -50,7 +36,7 @@
         <c:forEach var="info" items="${user.infoList}">
           <tr>
             <td>
-              <fmt:formatDate value="${info.date}" pattern="dd.MM.yyyy"/>
+              <fmt:formatDate value="${info.date}" pattern="MMMM dd, yyyy"/>
             </td>
             <td>
               <fmt:formatDate value="${info.date}" pattern="HH:mm"/>
@@ -62,6 +48,11 @@
         </c:forEach>
         </tbody>
       </table>
+    </div>
+  </div>
+  <div class="middle">
+    <div class="block2">
+      <p>HELLO</p>
     </div>
   </div>
   </body>

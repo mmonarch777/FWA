@@ -12,7 +12,7 @@
     <style type="text/css">
         .block1 {
             width: 320px;
-            background: #bbbc99;
+            background: azure;
             padding: 5px;
             border: solid 1px black;
             margin-top: 10px;
@@ -27,7 +27,7 @@
         }
         .head {
             width: 320px;
-            background: #bbbc99;
+            background: azure;
             padding: 5px;
             border: solid 1px black;
             text-align: center;
@@ -35,7 +35,7 @@
         }
         .button {
             width: 320px;
-            background: #bbbc99;
+            background: azure;
             padding: 5px;
             border: solid 1px black;
             margin-left: auto;
@@ -51,16 +51,16 @@
         }
     </style>
 </head>
-<body>
+<body style="background: honeydew">
 <h1 class="head">Вечер в хату</h1>
 
 <form class="block1" method="post" action="/signIn">
 
     <div class="block2">
-        <label><input type="text" name="name"></label>Имя<br>
+        <label><input type="text" name="name" placeholder="Имя"></label>Имя<br>
     </div>
     <div class="block2">
-        <label><input type="text" name="password"></label>Пароль<br>
+        <label><input type="password" name="password" placeholder="Пароль" required></label>Пароль<br>
     </div>
     <div class="button2" >
         <input type="submit" value="Войти">

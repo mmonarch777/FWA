@@ -14,7 +14,7 @@
     <style type="text/css">
         .block1 {
             width: 320px;
-            background: #bbbc99;
+            background: azure;
             padding: 5px;
             border: solid 1px black;
             margin-top: 10px;
@@ -36,7 +36,7 @@
         }
         .head {
             width: 320px;
-            background: #bbbc99;
+            background: azure;
             padding: 5px;
             border: solid 1px black;
             text-align: center;
@@ -44,20 +44,20 @@
         }
     </style>
 </head>
-<body>
+<body style="background: honeydew">
 <h1 class="head">Регистрация</h1>
 <form class="block1" method="post" action="/signUp">
     <div class="block2">
-        <label><input type="text" name="name"></label>Имя<br>
+        <label><input type="text" name="name" placeholder="Имя"></label>Имя<br>
     </div>
     <div class="block2">
-        <label><input type="text" name="surname"></label>Фамилия<br>
+        <label><input type="text" name="surname" placeholder="Фамилия"></label>Фамилия<br>
     </div>
     <div class="block2">
-        <label><input type="text" name="phone"></label>Номер телефона<br>
+        <label><input type="text" name="phone" placeholder="89235770997"></label>Номер телефона<br>
     </div>
     <div class="block2">
-        <label><input type="text" name="password"></label>Пароль<br>
+        <label><input type="password" name="password" placeholder="Пароль" required></label>Пароль<br>
     </div>
     <div class="button">
         <input type="submit" value="Зарегистрировать">
