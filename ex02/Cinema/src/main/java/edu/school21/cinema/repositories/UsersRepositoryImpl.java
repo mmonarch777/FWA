@@ -1,7 +1,10 @@
 package edu.school21.cinema.repositories;
 
+import edu.school21.cinema.models.Image;
+import edu.school21.cinema.models.Info;
 import edu.school21.cinema.models.User;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,10 +46,18 @@ public class UsersRepositoryImpl implements UsersRepository{
                 }
                 infoRepository.saveInfo(user.getId(), ip);
                 user.setInfoList(infoRepository.getInfo(user.getId()));
+                user.setImageList(getImage(user.getId()));
                 return Optional.of(user);
             }
         }
         return Optional.empty();
+    }
+
+    public List<Image> getImage(Integer id) {
+        return jdbc.query("select * from images where owner=?",
+                new Object[]{id},
+                new int[]{Types.INTEGER},
+                new BeanPropertyRowMapper<>(Image.class));
     }
     @Override
     public boolean saveUser(HttpServletRequest request) {
@@ -92,6 +103,7 @@ public class UsersRepositoryImpl implements UsersRepository{
                     resultSet.getString("surname"),
                     resultSet.getString("phone"),
                     resultSet.getString("password"),
+                    null,
                     null
             );
         }

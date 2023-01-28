@@ -33,11 +33,12 @@ table, th, td {
     width: 400px;
     margin-top: 45px;
 }
+.table2 {
+    width: 630px;
+}
 .head {
     display: flex;
     /*justify-content: center;*/
-    /*max-width: 100%;*/
-    /*height: auto;*/
     background: azure;
 }
 .block1 {
@@ -57,4 +58,13 @@ table, th, td {
     justify-content: center;
     max-width: 100%;
     background: floralwhite;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.upload {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 190px;
 }

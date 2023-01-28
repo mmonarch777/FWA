@@ -14,4 +14,5 @@ public class User {
     private String phone;
     private String password;
     private List<Info> infoList;
+    private List<Image> imageList;
 }

@@ -19,7 +19,21 @@
   <body>
   <div class="head">
     <div class="block1">
-      <img class="image" alt="Avatar"/>
+      <img class="image" alt="Avatar"
+      <c:if test="${user.imageList.size() > 0}">
+        src="<c:out value="data:${user.imageList.get(user.imageList.size() - 1).mime};base64,${sessionScope.img}"/>"/>
+      </c:if>
+      <c:if test="${user.imageList.size() <= 0}">
+        src="/"/>
+      </c:if>
+      <form method="post" action="/profile" enctype="multipart/form-data">
+        <div class="upload">
+          <label>
+            <input type="file" name="file" accept="image/.png,.jpeg"><br/>
+            <input type="submit" value="Upload">
+          </label>
+        </div>
+      </form>
     </div>
     <div class="block2">
       <h1>${user.name} ${user.surname}</h1>
@@ -51,9 +65,40 @@
     </div>
   </div>
   <div class="middle">
-    <div class="block2">
-      <p>HELLO</p>
-    </div>
+      <table class="table2">
+        <thead>
+        <tr>
+          <th style="text-align: left">Название файла</th>
+          <th style="text-align: left">Размер</th>
+          <th style="text-align: left">MIME</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="image" items="${user.imageList}">
+          <tr>
+            <td>
+              <a href="image/<c:out value="${image.uniqName}"/>" target="_blank">
+              <c:out value="${image.name}"/>
+              </a>
+            </td>
+            <td>
+              <c:set var="size" value="${image.size / 1000}"/>
+              <c:choose>
+                <c:when test="${size >= 1000}">
+                  <fmt:formatNumber value="${size / 1000}" pattern="0.0"/> MB
+                </c:when>
+                <c:otherwise>
+                  <fmt:formatNumber value="${size}" pattern="0"/> KB
+                </c:otherwise>
+              </c:choose>
+            </td>
+            <td>
+              <c:out value="${image.mime}"/>
+            </td>
+          </tr>
+        </c:forEach>
+        </tbody>
+      </table>
   </div>
   </body>
 </html>

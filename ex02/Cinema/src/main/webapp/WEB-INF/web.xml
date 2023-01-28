@@ -8,5 +8,23 @@
     <error-code>403</error-code>
     <location>/WEB-INF/jsp/403.jsp</location>
   </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/jsp/404.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/jsp/404.jsp</location>
+  </error-page>
+
+
+  <servlet>
+    <servlet-name>image</servlet-name>
+    <jsp-file>/WEB-INF/jsp/image.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>image</servlet-name>
+    <url-pattern>/image/*</url-pattern>
+  </servlet-mapping>
 
 </web-app>

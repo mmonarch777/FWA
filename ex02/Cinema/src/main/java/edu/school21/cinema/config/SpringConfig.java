@@ -1,10 +1,8 @@
 package edu.school21.cinema.config;
 
 
-import edu.school21.cinema.repositories.InfoRepository;
-import edu.school21.cinema.repositories.InfoRepositoryImpl;
-import edu.school21.cinema.repositories.UsersRepository;
-import edu.school21.cinema.repositories.UsersRepositoryImpl;
+import edu.school21.cinema.repositories.*;
+import edu.school21.cinema.services.ImagesService;
 import edu.school21.cinema.services.UsersService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +26,9 @@ public class SpringConfig {
 
     @Value("${db.url}")
     private String url;
+
+    @Value("${storage.path}")
+    private String path;
 
 
     @Bean
@@ -61,6 +62,20 @@ public class SpringConfig {
     @Bean
     public UsersService usersService() {
         return new UsersService(usersRepository());
+    }
+
+    @Bean
+    public ImageRepository imageRepository() {
+        return new ImageRepositoryImpl(jdbcTemplate());
+    }
+
+    @Bean
+    public ImagesService imagesService() {
+        return new ImagesService(imageRepository());
+    }
+    @Bean
+    public String path() {
+        return this.path;
     }
 
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(value = {"/signIn", "/"})
+@WebServlet(value = {"/signIn", ""})
 public class ServletSignIn extends HttpServlet {
     private UsersService usersService;
 
