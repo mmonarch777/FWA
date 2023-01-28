@@ -52,7 +52,7 @@
     </style>
 </head>
 <body style="background: honeydew">
-<h1 class="head">Вечер в хату</h1>
+<h1 class="head">Приветик</h1>
 
 <form class="block1" method="post" action="/signIn">
 
