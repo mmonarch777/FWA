@@ -3,7 +3,6 @@ package edu.school21.cinema.servlets;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.services.ImagesService;
 import org.springframework.context.ApplicationContext;
-import sun.misc.IOUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -40,7 +39,7 @@ public class ServletProfile extends HttpServlet {
         if (size > 0) {
             String uniqName = user.getImageList().get(size - 1).getUniqName();
             try (InputStream is = Files.newInputStream(Paths.get(path + File.separator + uniqName))) {
-                byte[] array = IOUtils.readAllBytes(is);
+                byte[] array = is.readAllBytes();
                 req.getSession().setAttribute("img", Base64.getEncoder().encodeToString(array));
             } catch (NoSuchFileException ignored) {
 

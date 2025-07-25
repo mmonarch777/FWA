@@ -4,13 +4,15 @@ package edu.school21.cinema.config;
 import edu.school21.cinema.repositories.*;
 import edu.school21.cinema.services.ImagesService;
 import edu.school21.cinema.services.UsersService;
+import io.zonky.test.db.postgres.embedded.EmbeddedPostgres;
+import lombok.SneakyThrows;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -32,14 +34,25 @@ public class SpringConfig {
 
 
     @Bean
+    @SneakyThrows
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(driver);
-        dataSource.setUrl(url);
-        return dataSource;
+        EmbeddedPostgres postgres = EmbeddedPostgres.builder().setPort(5454).start();
+        return postgres.getPostgresDatabase();
     }
 
     @Bean
+    public Flyway flyway(DataSource dataSource) {
+        System.out.println("*** FLYWAY MIGRATIONS ***");
+        Flyway flyway = Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:sql/")
+                .load();
+        flyway.migrate();
+        return flyway;
+    }
+
+    @Bean
+    @SneakyThrows
     public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(dataSource());
     }

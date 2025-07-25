@@ -2,7 +2,6 @@
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.nio.file.Files" %>
 <%@ page import="java.nio.file.Paths" %>
-<%@ page import="sun.misc.IOUtils" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <%
@@ -14,7 +13,7 @@
     else
         response.setContentType("image/png");
     ServletOutputStream outputStream = response.getOutputStream();
-    outputStream.write(IOUtils.readAllBytes(in));
+    outputStream.write(in.readAllBytes());
     outputStream.close();
     in.close();
 %>

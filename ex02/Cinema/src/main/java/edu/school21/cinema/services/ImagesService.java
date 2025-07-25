@@ -3,7 +3,6 @@ package edu.school21.cinema.services;
 import edu.school21.cinema.models.Image;
 import edu.school21.cinema.models.User;
 import edu.school21.cinema.repositories.ImageRepository;
-import sun.misc.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
@@ -25,7 +24,7 @@ public class ImagesService {
         String uniqName = getUniqName(mime);
         try(OutputStream output = Files.newOutputStream(Paths.get(path + File.separator + uniqName))) {
             InputStream input = part.getInputStream();
-            byte[] array = IOUtils.readAllBytes(input);
+            byte[] array = input.readAllBytes();
             output.write(array);
             request.getSession().setAttribute("img", Base64.getEncoder().encodeToString(array));
             input.close();

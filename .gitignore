@@ -1,0 +1,7 @@
+*.iml
+
+
+/ex02/Cinema/target
+/ex01/Cinema/target
+/ex00/Cinema/target
+.idea
